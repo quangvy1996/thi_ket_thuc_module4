@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Quản lý Khuyến Mãi</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Danh sách khuyến mãi</h1>
+    <div class="mb-4">
+        <a th:href="@{/saleoff/add}" class="btn btn-primary">Thêm Khuyến Mãi</a>
+        <form th:action="@{/saleoff/search}" method="get" class="form-inline float-right">
+            <input type="number" name="discount" class="form-control mr-2" placeholder="Nhập mức giảm giá">
+            <button type="submit" class="btn btn-outline-primary">Tìm kiếm</button>
+        </form>
+    </div>
+    <div>
+        <form class="form-inline" th:action="@{/saleoff/search-day}" method="get">
+            <label for="fromDate" class="mr-2">Danh sách từ:</label>
+            <input type="date" id="fromDate" name="startDateStr" class="form-control mr-3">
+            <label for="toDate" class="mr-2">đến:</label>
+            <input type="date" id="toDate" name="endDateStr" class="form-control mr-3">
+            <button type="submit" class="btn btn-primary">Xem</button>
+        </form>
+    </div>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>Tiêu đề</th>
+            <th>Thời gian bắt đầu</th>
+            <th>Thời gian kết thúc</th>
+            <th>Mức giảm giá</th>
+            <th>Chi tiết</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="saleoff : ${saleOffList}">
+            <td th:text="${saleoff.title}"></td>
+            <td th:text="${saleoff.startDate}"></td>
+            <td th:text="${saleoff.endDate}"></td>
+            <td th:text="${saleoff.salePrice}"></td>
+            <td th:text="${saleoff.detail}"></td>
+            <td>
+                <a class="btn btn-warning btn-sm">Sửa</a>
+                <a th:href="@{/saleoff/delete/{id}(id=${saleoff.id})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Bạn có chắc chắn muốn xóa khuyến mãi này?');">Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
